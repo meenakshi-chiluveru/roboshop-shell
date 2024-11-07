@@ -5,4 +5,4 @@ sed -i '/^bind/ s/127.0.0.1/0.0.0.0/' /etc/redis/redis.conf
 sed -i '/protected-mode/ c protected-mode no' /etc/redis/redis.conf
 #update redis config file
 systemctl enable redis
-systemctl start redis
+systemctl restart redis
