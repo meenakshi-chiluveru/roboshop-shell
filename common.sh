@@ -1,43 +1,50 @@
 LOG_FILE=/tmp/roboshop
 rm -rf $LOG_FILE
+
+PRINT(){
+  echo &>>$LOG_FILE
+  echo &>>$LOG_FILE
+  echo "############# $* ######" echo &>>$LOG_FILE
+  echo $*
+}
 nodejs(){
-  echo disable nodejs default cersion
+  PRINT disable nodejs default cersion
   dnf module disable nodejs -y  &>>$LOG_FILE
 
-  echo enable nodejs version
+  PRINT enable nodejs version
   dnf module enable nodejs:20 -y  &>>$LOG_FILE
 
-  echo copy service file
+ PRINT copy service file
   cp ${component}.service /etc/systemd/system/${component}.service  &>>$LOG_FILE
 
-  echo copy mongodb repo file
+  PRINT copy mongodb repo file
   cp mongo.repo /etc/yum.repos.d/mongo.repo  &>>$LOG_FILE
 
-  echo add user
+  PRINT add user
   useradd roboshop  &>>$LOG_FILE
 
-  echo remove/cleqnaing app directory
+ PRINT remove/cleqnaing app directory
   rm -rf /app  &>>$LOG_FILE
 
-  echo make /app directory
+ PRINT make /app directory
   mkdir /app  &>>$LOG_FILE
 
-  echo download application content
+PRINT download application content
   curl -o /tmp/${component}.zip https://roboshop-artifacts.s3.amazonaws.com/${component}-v3.zip  &>>$LOG_FILE
 
-  echo change to app directory
+PRINT change to app directory
   cd /app  &>>$LOG_FILE
 
-  echo extracting application
+ PRINT extracting application
   unzip /tmp/${component}.zip  &>>$LOG_FILE
 
-  echo change directory to /app
+  PRINT change directory to /app
   cd /app  &>>$LOG_FILE
 
-  echo download nodejs dependencies
+ PRINT download nodejs dependencies
   npm install &>>$LOG_FILE
 
-  echo start service
+PRINT start service
   systemctl daemon-reload &>>$LOG_FILE
   systemctl enable ${component} &>>$LOG_FILE
   systemctl restart ${component} &>>$LOG_FILE
