@@ -1,8 +1,8 @@
+# loaded sourcefile which is common.sh into cataloge.sh
+source common.sh
 cp catalogue.service /etc/systemd/system/catalogue.service
 cp mongo.repo /etc/yum.repos.d/mongo.repo
-dnf module disable nodejs -y
-dnf module enable nodejs:20 -y
-dnf install nodejs -y
+nodejs
 useradd roboshop
 rm -rf /app
 mkdir /app
