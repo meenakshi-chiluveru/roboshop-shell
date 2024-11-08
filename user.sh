@@ -1,3 +1,4 @@
+# loaded source file which is common.sh to user.sh
 source common.sh
 cp user.service /etc/systemd/system/user.service
 nodejs
